@@ -1,0 +1,20 @@
+pm-lecture % git status
+On branch b03
+
+/Bedeutet das man auf der Arbeitslinie b03 ist 
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   CONTRIBUTING.md
+        modified:   homework/b03.md
+
+/Hier wird gesagt dass, die beide angezeigte Dokumenten eine Änderung haben(daraus kann man erkennen das von diese Dateien 
+/schon ein Copie in mein Repo gibt), diese Dateien befinden sich gerade in mein Arbeitsordner.  
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        foo.java
+/foo.java ist git nicht bekannt da es kein Copie in mien Repo davon gibt.
+
+no changes added to commit (use "git add" and/or "git commit -a")
