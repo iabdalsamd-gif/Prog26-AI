@@ -1,0 +1,102 @@
+Klonen Sie die Vorgaben "Git-Quest". Sie finden die Geschichte des Helden Markus im Dungeon.1
+
+1.Öffnen Sie eine Konsole und beantworten Sie mit Hilfe der Befehle git checkout, git log und git show sowie git diff folgende Fragen:
+
+Was passierte an tag 01?
+-Markus ist in den Dongeon eingestiegen um Munster zu besiegen und das Amulet zu finden.
+
+Wann hat der Held zum ersten Mal 4 experience Punkte?
+-An den tag 1.3
+
+Wann hat der Held zum ersten Mal 10 hunger Punkte?
+-An Tag 2 
+
+Wie viele Heiltränke hat der Held insgesamt in seinem Rucksack gehabt?
+-git show 6405bd9:rucksack.md
+-Markus hat 1 Heiltrank am Tag 20 
+
+Was hat der Held im Shop gekauft? Und wie viel Gold hat er dafür bezahlt?	
+-git diff 2ffebcf 8f88b19 -- rucksack.md
+-Im shop würde ein Heiltrank für 10 Gold gekauft und das ganze geschah zwischen tag 3 und tag 4.4
+
+Was passierte zwischen tag 03 und tag 04, d.h. was änderte sich zwischen diesen Commits?
+- git diff 2ffebcf 39568d5
+- man kann erkennen dass, Markus nicht mehre hunger hat und 10 Gold Münzen fehlen(Markus ist verstärkt).
+ 
+Hat der Held etwas gegessen? Falls ja, was und wann?
+-git log --reverse -p 2ffebcf..39568d5
+-der Held hat ein Brot gekauft für 5 Gold münzen
+
+
+2.Beim letzten Commit (tag 04.5) ist etwas schief gelaufen, es wurden versehentlich zu wenig experience Punkte eingestellt. Ändern Sie diesen letzten Commit und passen Sie die experience Punkte auf 42 an.
+-nano stats.md
+-Experience auf 42 erhöht
+-git add stats.md
+-git commit --amend --no-edit
+
+
+3.Schreiben Sie die Geschichte in der Datei questlog.md fort und erzeugen Sie einen neuen Commit für tag 04.6. Ändern Sie bitte hierzu nur die eine Datei questlog.md.
+-nano questlog.md 
+-Hingfügt:+Nach mehreren Tagen im Dongeon und viele Kämpfe sah Markus ein heiße Quelle die sehr starke Heilende wirkung hat.
+-git add questlog.md
+-git commit -m "tag 04.6"
+
+4.Schreiben Sie die Geschichte noch weiter fort (tag 04.7), aber ändern Sie diesmal mehrere Dateien, die an diesem Tag (neuer Commit) gemeinsam eingecheckt werden sollen.
+-nano questlog.md 
+-+Das Problem ist, diese Quelle wird von ein sehr starken Münster mit ein stall Rüstung bewacht(durch der Stal Rüstung macht der nür 2 dmg). Markus hat kein andere wahl, er muss diese Münster besiegen um sein wünden zu heilen.
+-nano stats.md
+-| Property   | Value         |
+ |------------|---------------|
+ | health     | 8             |
+ | experience | 42            |
+ | hunger     | 0             |
+ | weapon     | sword (2 dmg) |
+ | armor      | light (2 dmg) |
+-git add stats.md questlog.md
+-git commit -m "tag 04.7"
+
+5.Fälschlicherweise wurden die Statuspunkte und die Ausrüstung bisher gemeinsam in der Datei stats.md geführt. Korrigieren Sie das und verschieben Sie die Ausrüstungsgegenstände aus der Datei stats.md in eine neue Datei gear.md. Checken Sie Ihre Änderungen als tag 04.8 (neuer Commit) gemeinsam ein. (Hinweis: Es reicht, wenn diese Änderung als letzter Commit auf der Spitze des master-Branches existiert. Sie brauchen/sollen die Trennung von Statuspunkten und Ausrüstung nicht rückwirkend in die Historie einbauen!)
+-nano stats.md
+-| Property   | Value         |
+ |------------|---------------|
+ | health     | 8             |
+ | experience | 42            |
+ | hunger     | 0             |
+ |            |               |
+ |            |               |
+-nano gear.md
+-| gear       | dmg           |
+ |------------|---------------|
+ | weapon     | 2             |
+ | armor      | 2             |
+ |            |               |
+ |            |               |
+ |            |               |
+-git add gear.md stats.md
+- git commit -m "tag 04.08"
+-git status
+
++#gear
++
++| gear       | dmg           |
++|------------|---------------|
++| weapon     | 2             |
++| armor      | 2             |
++|            |               |
++|            |               |
++|            |               |
+diff --git a/stats.md b/stats.md
+index 926d281..e3ff286 100644
+--- a/stats.md
++++ b/stats.md
+@@ -5,5 +5,5 @@
+ | health     | 8             |
+ | experience | 42            |
+ | hunger     | 0             |
+-| weapon     | sword (2 dmg) |
+-| armor      | light (2 dmg) |
++|            |               |
++|            |               |
+
+
+
