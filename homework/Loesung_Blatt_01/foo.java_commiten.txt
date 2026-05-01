@@ -1,0 +1,5 @@
+git restore --staged
+/um alles was in Staging Area ist zu enfernen 
+git add foo.java 
+/foo.java in Staging packen 
+git command -m "Add: foo.java"
