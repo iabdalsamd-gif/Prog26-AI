@@ -1,0 +1,145 @@
+Gradle
+Folgen Sie der Anleitung auf gradle.org und installieren Sie Gradle auf Ihrem Rechner. Legen Sie in der Konsole ein neues Gradle-Projekt für eine Java-Applikation an (ohne IDE!). Das Build-Script soll in Groovy erzeugt und als Test-API soll JUnit5 oder JUnit6 verwendet werden.
+
+Wie finden Sie auf der Konsole heraus, welche Tasks es gibt? 
+-mit (gradle tasks) werden tastk aufgelistet und aufgeteit passend zu Thema 
+
+Erklären Sie das Projektlayout, d.h. wo kommen beispielsweise die Java-Dateien hin?
+-tree /f /a 
+-|   .gitattributes
+ |   .gitignore
+ |   gradle.properties
+ |   gradlew
+ |   gradlew.bat
+ |   settings.gradle
+ |
+ +---app
+ |   |   build.gradle
+ |   |
+ |   \---src
+ |       +---main
+ |       |   +---java
+ |       |   |   \---org
+ |       |   |       \---example
+ |       |   |               App.java
+ |       |   |
+ |       |   \---resources
+ |       \---test
+ |           +---java
+ |           |   \---org
+ |           |       \---example
+ |           |               AppTest.java
+ |           |
+ |           \---resources
+ \---gradle
+     |   libs.versions.toml
+     |
+     \---wrapper
+             gradle-wrapper.jar
+             gradle-wrapper.properties
+
+
+Erklären Sie, in welche Abschnitte das generierte Buildskript unterteilt ist und welche Aufgaben diese Abschnitte jeweils erfüllen. Gehen Sie dabei im Detail auf das Plugin application und die dort bereitgestellten Tasks und deren Abhängigkeiten untereinander ein.
+
+-Als Standart gibt es 5 unterteilungen(dieser Beispiel ist kein Standart Buil)
+1. plugins
+plugins {
+    id 'application'(von Gradle init)
+    id 'java' (selber)
+}
+-Bei Plugin setzt werden Funktionen gepackt die beim Projekt gebraucht werden 
+
+2. repositories
+repositories {
+    mavenCentral()(von Gradle init)
+}
+- Bei Repositories wird festgelegt, aus welchen Quellen Gradle externe Bibliotheken herunterladen darf
+3.dependencies
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'(selber)
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'(selber)
+
+    implementation libs.guava(von Gradle init)
+}
+-Im dependencies-Block werden die Bibliotheken angegeben, die das Projekt benötigt. 
+4. java
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+-Hier wird festgelegt welche Java IDE benützt werden muss.
+5. application
+application {
+    // Define the main class for the application.
+    mainClass = 'org.example.App'
+}
+- Hier wird festgelegt von main ist und es heißt.
+
+----------------------------------------------------------------------------------------------------------------
+-Unter das Plugin application sind viele Tasts gebildet.
+
+Application tasks
+-----------------
+run - Runs this project as a JVM application
+- Beim starten von Task rum wird Rask classes gestartät, dieser widerrum starte die Tasks compileJava und processResources
+run
+└── classes
+    ├── compileJava
+    └── processResources
+
+Build tasks
+-----------
+assemble - Assembles the outputs of this project.
+build - Assembles and tests this project.
+buildDependents - Assembles and tests this project and all projects that depend on it.
+buildNeeded - Assembles and tests this project and all projects it depends on.
+classes - Assembles main classes.
+clean - Deletes the build directory.
+jar - Assembles a jar archive containing the classes of the 'main' feature.
+testClasses - Assembles test classes.
+
+Build Setup tasks
+-----------------
+init - Initializes a new Gradle build.
+updateDaemonJvm - Generates or updates the Gradle Daemon JVM criteria.
+wrapper - Generates Gradle wrapper files.
+
+Distribution tasks
+------------------
+assembleDist - Assembles the main distributions
+distTar - Bundles the project as a distribution.
+distZip - Bundles the project as a distribution.
+installDist - Installs the project as a distribution as-is.
+
+Documentation tasks
+-------------------
+javadoc - Generates Javadoc API documentation for the 'main' feature.
+
+Help tasks
+----------
+artifactTransforms - Displays the Artifact Transforms that can be executed in root project 'Testing_gradle'.
+buildEnvironment - Displays all buildscript dependencies declared in root project 'Testing_gradle'.
+dependencies - Displays all dependencies declared in root project 'Testing_gradle'.
+dependencyInsight - Displays the insight into a specific dependency in root project 'Testing_gradle'.
+help - Displays a help message.
+javaToolchains - Displays the detected java toolchains.
+outgoingVariants - Displays the outgoing variants of root project 'Testing_gradle'.
+projects - Displays the sub-projects of root project 'Testing_gradle'.
+properties - Displays the properties of root project 'Testing_gradle'.
+resolvableConfigurations - Displays the configurations that can be resolved in root project 'Testing_gradle'.
+tasks - Displays the tasks runnable from root project 'Testing_gradle' (some of the displayed tasks may belong to subprojects).
+
+Verification tasks
+------------------
+check - Runs all checks.
+test - Runs the test suite.
+
+
+
+Öffnen Sie das Projekt in Ihrer IDE. Wie können Sie hier die verschiedenen Tasks ansteuern?
+- Man kann über IDE terminal die Tasks starten z.B. gradle run 
+> Task :app:run
+Hello World!
+
+Machen Sie sich Notizen, welche Sie im Praktikum nutzen dürfen, um dort das Buildskript zu erklären.
