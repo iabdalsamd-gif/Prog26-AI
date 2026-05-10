@@ -3,6 +3,8 @@ Klonen Sie die Vorgaben "Git-Quest". Sie finden die Geschichte des Helden Markus
 1.Öffnen Sie eine Konsole und beantworten Sie mit Hilfe der Befehle git checkout, git log und git show sowie git diff folgende Fragen:
 
 Was passierte an tag 01?
+-git log --oneline --all
+-git show 4aa8014
 -Markus ist in den Dongeon eingestiegen um Munster zu besiegen und das Amulet zu finden.
 
 Wann hat der Held zum ersten Mal 4 experience Punkte?

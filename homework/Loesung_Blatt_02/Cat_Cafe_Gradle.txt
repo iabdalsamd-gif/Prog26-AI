@@ -1,0 +1,53 @@
+Cat Cafe
+Gradle 
+ Erstellen Sie eine Gradle-Konfiguration für das Java-Projekt und fügen Sie als externe Abhängigkeiten JUnit (Version 6.x) sowie das Gradle-Plugin Spotless hinzu. Passen Sie die Konfiguration so an, dass Sie
+
+*main() in catcafe.Main über Gradle ausführen können, und
+Nach dem Erstelle von neuen Projekt mit Gradle habe den src/ Folder mit den aus Cat Cafe Repo getauscht
+*JUnit-Tests mit Gradle ausführen können, und
+gradle test | ausgeführt 
+Ergebnis: BUILD SUCCESSFUL in 1s, 3 actionable tasks: 3 executed  
+*den Code mit google-java-format formatieren können. Können Sie für den Google-Java-Formatter die Einrückung auf 4 Leerzeichen (statt der Default 2 Leerzeichen) anpassen? Lange Strings sollen ebenfalls umgebrochen werden (falls nötig).
+gradle spotlessApply | Ausgeführt --> BUILD SUCCESSFUL 
+gradle spotlessCheck | Ausgeführt -->  BUILD SUCCESSFUL
+
+
+
+plugins {
+    id 'application'
+    id 'com.diffplug.spotless' version '8.4.0'
+}
+
+group = 'catcafe'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'catcafe.Main'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+spotless {
+    java {
+        target 'src/**/*.java'
+        googleJavaFormat().aosp().reflowLongStrings()
+    }
+}

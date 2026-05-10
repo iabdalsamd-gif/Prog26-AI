@@ -1,0 +1,11 @@
+In der Pipeline passiert Folgende Sachen 
+
+Das Repository wird von GitHub ausgecheckt.
+Java wird für das Gradle-Projekt eingerichtet.
+Die Gradle-Wrapper-Datei gradlew wird ausführbar gemacht.
+Das Projekt wird mit Gradle kompiliert.
+Die JUnit-Tests werden ausgeführt.
+Die Code-Formatierung wird mit Spotless geprüft.
+
+
+https://github.com/iabdalsamd-gif/Cat_cafe_AI.git

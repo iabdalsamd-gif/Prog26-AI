@@ -1,0 +1,9 @@
+JUnit
+
+Warum sind die Testfälle relevant?
+
+Die Testfälle sind relevant, weil sie die wichtigsten Funktionen der Klasse CatCafe prüfen. Es wird getestet, ob Katzen korrekt hinzugefügt werden, ob die Anzahl der Katzen stimmt, ob Katzen über ihren Namen gefunden werden und ob die Suche nach Gewicht funktioniert. Außerdem werden auch Fehler- und Sonderfälle geprüft, zum Beispiel ein leeres Café, eine nicht vorhandene Katze, ungültige Gewichtsspannen, negative Gewichte und das Hinzufügen von null.
+
+Warum sind die Testfälle unterschiedlich?
+
+Die Testfälle sind unterschiedlich, weil sie verschiedene Situationen abdecken. Einige Tests prüfen den Normalfall, zum Beispiel das Hinzufügen oder Finden einer vorhandenen Katze. Andere Tests prüfen Grenzfälle, zum Beispiel eine Gewichtsspanne, in der keine Katze liegt. Wieder andere Tests prüfen Fehlerfälle, zum Beispiel null als Katze oder eine ungültige Gewichtsspanne. Dadurch werden verschiedene Methoden und verschiedene Programmpfade der Klasse CatCafe getestet
