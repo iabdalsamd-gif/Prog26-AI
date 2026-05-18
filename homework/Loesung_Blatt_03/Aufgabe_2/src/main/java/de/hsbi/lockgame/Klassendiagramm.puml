@@ -1,0 +1,168 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+package "de.hsbi.lockgame" {
+  class Main
+}
+
+package "de.hsbi.lockgame.logic" {
+  class GameEngine {
+    + GameEngine(level : Level)
+    + state() : GameState
+    + setGamePanel(panel : GamePanel) : void
+    + update(d : Direction) : void
+    + tick() : void
+  }
+
+  class GameState {
+    + GameState(level : Level, snake : Snake, pins : List<Pin>, status : Status, pendingDirection : Direction)
+    + level() : Level
+    + snake() : Snake
+    + pins() : List<Pin>
+    + status() : Status
+    + pendingDirection() : Direction
+    + tick() : GameState
+  }
+
+  enum "GameState.Status" as Status {
+    RUNNING
+    WON
+    LOST_SELF_COLLISION
+    LOST_OUT_OF_BOUNDS
+    + isRunning() : boolean
+  }
+}
+
+package "de.hsbi.lockgame.model" {
+  class Level {
+    + isInside(pos : Position) : boolean
+    + cellAt(pos : Position) : CellType
+    + width() : int
+    + height() : int
+    + cells() : CellType[][]
+    + pins() : List<Pin>
+    + snakeStart() : Position
+  }
+
+  class Snake {
+    + head() : Position
+    + body() : List<Position>
+    + nextHead(d : Direction) : Position
+    + occupies(position : Position) : boolean
+    + grow(d : Direction) : Snake
+  }
+
+  class Pin {
+    + withState(newState : State) : Pin
+    + position() : Position
+    + state() : State
+    + activationDirection() : Direction
+  }
+
+  enum "Pin.State" as PinState {
+    LOW
+    HIGH
+    + isSet() : boolean
+  }
+
+  class Position {
+    + x() : int
+    + y() : int
+  }
+
+  enum Direction {
+    UP
+    DOWN
+    LEFT
+    RIGHT
+    NONE
+    + applyTo(pos : Position) : Position
+    + oppositeDirection() : Direction
+  }
+
+  enum CellType {
+    EMPTY
+    WALL
+    PIN_SLOT
+  }
+}
+
+package "de.hsbi.lockgame.io" {
+  class LevelLoader {
+    + loadLevelFromPath(path : Path) : Level
+    + loadLevelFromResource(resourcePath : String) : Level
+  }
+
+  class MusicPlayer {
+    + playLoopFromResource(resourcePath : String) : void
+  }
+}
+
+package "de.hsbi.lockgame.ui" {
+  class GamePanel {
+    + GamePanel(initialState : GameState, renderer : GameRenderer)
+    + update(newState : GameState) : void
+    + setGameEngine(engine : GameEngine) : void
+  }
+}
+
+package "de.hsbi.lockgame.ui.render" {
+  interface GameRenderer {
+    + render(g2d : Graphics2D, state : GameState, tileSize : int) : void
+  }
+
+  class Java2DRenderer {
+    + render(g2d : Graphics2D, state : GameState, tileSize : int) : void
+  }
+
+  class TextureRenderer {
+    + render(g2d : Graphics2D, state : GameState, tileSize : int) : void
+  }
+}
+
+Main --> LevelLoader
+Main --> GameEngine
+Main --> GamePanel
+Main --> Java2DRenderer
+
+LevelLoader --> Level
+LevelLoader --> Pin
+LevelLoader --> Position
+LevelLoader --> Direction
+LevelLoader --> CellType
+
+GameEngine --> GameState
+GameEngine --> GamePanel : notifies observer
+GameEngine --> Direction
+
+GameState --> Level
+GameState --> Snake
+GameState --> Pin
+GameState --> Direction
+GameState --> Status
+
+Level --> CellType
+Level --> Pin
+Level --> Position
+
+Snake --> Position
+Snake --> Direction
+
+Pin --> Position
+Pin --> Direction
+Pin --> PinState
+
+GamePanel --> GameState
+GamePanel --> GameEngine : sends input
+GamePanel --> GameRenderer
+
+Java2DRenderer ..|> GameRenderer
+TextureRenderer ..|> GameRenderer
+
+Java2DRenderer --> GameState
+TextureRenderer --> GameState
+
+MusicPlayer ..> Main
+
+@enduml

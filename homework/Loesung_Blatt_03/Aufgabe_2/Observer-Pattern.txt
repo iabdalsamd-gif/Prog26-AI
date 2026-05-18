@@ -1,0 +1,5 @@
+Das Observer-Pattern wird in zwei Richtungen verwendet:
+
+Die GameEngine verwaltet den aktuellen GameState und ist Observable für Änderungen am GameState. Dazu speichert sie Observer vom Typ Consumer<GameState>. Das GamePanel wird über setGamePanel mit der Methodenreferenz panel::update registriert. Nach jeder Änderung am Spielzustand ruft die GameEngine notifyObservers() auf, wodurch GamePanel.update(GameState) ausgeführt wird und das Spielfeld neu gezeichnet wird.
+
+Zusätzlich beobachtet die GameEngine die Tastatureingaben des GamePanels. In GamePanel.setupKeyBindings werden Tastendrücke in Direction-Werte übersetzt und über gameEngine.update(direction) an die GameEngine weitergegeben. Dadurch reagiert die GameEngine automatisch auf Eingaben und erzeugt einen neuen GameState.
