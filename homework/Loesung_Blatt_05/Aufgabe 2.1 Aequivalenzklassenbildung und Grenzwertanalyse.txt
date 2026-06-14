@@ -1,0 +1,38 @@
+### Aufgabe 2.1: Äquivalenzklassenbildung und Grenzwertanalyse für `Shop#accept`
+
+Die Methode `Shop#accept(Order o)` nimmt einen neuen Reparaturauftrag an, wenn alle Bedingungen erfüllt sind. Ein Auftrag wird abgelehnt, wenn es sich um ein Gravel-Bike oder E-Bike handelt, wenn derselbe Kunde bereits einen offenen Auftrag hat oder wenn bereits fünf offene Aufträge vorhanden sind.
+
+#### Äquivalenzklassen
+
+| Bedingung               | gültige Äquivalenzklasse              | ungültige Äquivalenzklasse              |
+| ----------------------- | ------------------------------------- | --------------------------------------- |
+| Fahrradtyp              | `RACE`, `SINGLE_SPEED`, `FIXIE`       | `GRAVEL`, `EBIKE`                       |
+| Kunde                   | Kunde hat noch keinen offenen Auftrag | Kunde hat bereits einen offenen Auftrag |
+| Anzahl offener Aufträge | 0 bis 4 offene Aufträge               | 5 oder mehr offene Aufträge             |
+
+#### Grenzwertanalyse
+
+Für die Anzahl der offenen Aufträge ist der wichtigste Grenzwert die maximale Kapazität von 5 Aufträgen.
+
+| Anzahl offener Aufträge vor `accept` | Erwartung                                                          |
+| -----------------------------------: | ------------------------------------------------------------------ |
+|                                    0 | Auftrag wird angenommen, wenn alle anderen Bedingungen gültig sind |
+|                                    4 | Auftrag wird noch angenommen, danach sind 5 Aufträge offen         |
+|                                    5 | Auftrag wird abgelehnt, da die maximale Kapazität erreicht ist     |
+
+Bei der Kundenbedingung ist der relevante Grenzfall, ob es bereits genau einen offenen Auftrag desselben Kunden gibt. Wenn ja, muss der neue Auftrag abgelehnt werden.
+
+#### Konkrete Testfälle
+
+| Testfall | Fahrradtyp     | bestehende offene Aufträge    | Kunde des neuen Auftrags | Erwartung |
+| -------- | -------------- | ----------------------------- | ------------------------ | --------- |
+| 1        | `RACE`         | 0                             | `Alice`                  | `true`    |
+| 2        | `SINGLE_SPEED` | 0                             | `Alice`                  | `true`    |
+| 3        | `FIXIE`        | 0                             | `Alice`                  | `true`    |
+| 4        | `GRAVEL`       | 0                             | `Alice`                  | `false`   |
+| 5        | `EBIKE`        | 0                             | `Alice`                  | `false`   |
+| 6        | `RACE`         | 1 Auftrag von `Alice`         | `Alice`                  | `false`   |
+| 7        | `RACE`         | 4 Aufträge von anderen Kunden | `Alice`                  | `true`    |
+| 8        | `RACE`         | 5 Aufträge von anderen Kunden | `Alice`                  | `false`   |
+
+Diese Testfälle decken die erlaubten Fahrradtypen, die verbotenen Fahrradtypen, den Kundendoppelauftrag und den Grenzwert der Warteschlangenlänge ab.

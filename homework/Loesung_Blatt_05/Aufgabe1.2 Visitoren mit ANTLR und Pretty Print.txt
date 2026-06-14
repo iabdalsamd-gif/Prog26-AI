@@ -1,0 +1,9 @@
+### Aufgabe 1.2: Visitoren mit ANTLR / Pretty Printing
+
+Für das Pretty Printing wird zuerst aus einem Eingabetext ein Parse-Tree erzeugt. Dafür werden `MiniJavaLexer`, `CommonTokenStream` und `MiniJavaParser` verwendet. Der Parser erzeugt anschließend mit `compilationUnit()` den Startknoten des Parse-Trees.
+
+Danach traversiert der `PrettyPrinterVisitor` den Parse-Tree. Die vier Methoden `visitCompilationUnit`, `visitClassBody`, `visitBlock` und `visitStatement` wurden so implementiert, dass Paketdeklarationen, Importdeklarationen, Klassendeklarationen, Blöcke und Statements strukturiert ausgegeben werden.
+
+Die Ausgabe zeigt, dass Klassenrümpfe, Methodenrümpfe, `if`/`else`, `while` und verschachtelte Blöcke korrekt eingerückt werden. Jedes Statement mit Semikolon steht auf einer eigenen Zeile. Die Anzahl der Leerzeichen pro Einrückstufe wird über die Konsole eingelesen und an den Konstruktor von `PrettyPrinterVisitor` übergeben.
+
+Auffällig ist, dass Kommentare und die ursprünglichen Leerzeichen aus dem Input nicht wieder ausgegeben werden. Das liegt daran, dass der PrettyPrinter den Parse-Tree traversiert und nicht den ursprünglichen Quelltext direkt kopiert. Whitespace wird vom Lexer übersprungen und Kommentare sind nicht Teil der normalen Parse-Tree-Struktur. Außerdem werden Ausdrücke nur einfach ausgegeben, daher entstehen Ausgaben wie `x<y` oder `x=y`. Eine perfekte Formatierung von Ausdrücken war für die Aufgabe nicht notwendig.

@@ -1,0 +1,9 @@
+Aufgabe 2.2: JUnit-Tests mit Mockito für `Shop#accept`
+
+Die in Aufgabe 2.1 ermittelten Testfälle wurden mit JUnit umgesetzt. Getestet wird die Methode `Shop#accept(Order o)`. Dabei wird überprüft, ob gültige Fahrradtypen angenommen und ungültige Fahrradtypen abgelehnt werden. Außerdem wird getestet, ob ein Kunde nicht mehrere offene Aufträge gleichzeitig haben darf und ob die maximale Anzahl von fünf offenen Aufträgen eingehalten wird.
+
+Für die Tests wird Mockito verwendet, weil die Klasse `Order` noch nicht vollständig implementiert ist. Die Methoden `getBicycleType()` und `getCustomer()` werfen in der echten Klasse eine `UnsupportedOperationException`. Würde man echte `Order`-Objekte verwenden, könnten die Tests daher nicht sinnvoll ausgeführt werden.
+
+Deshalb werden `Order`-Objekte gemockt. Mit Mockito wird festgelegt, welchen Fahrradtyp und welchen Kundennamen ein Auftrag zurückgeben soll. Dadurch kann `Shop#accept` mit kontrollierten Testdaten getestet werden.
+
+Wichtig ist, dass nur `Order` gemockt wird. Die zu testende Methode `Shop#accept` wird nicht gemockt, sondern in ihrer echten Implementierung ausgeführt. Damit testen die JUnit-Tests tatsächlich das Verhalten der Methode `accept`.

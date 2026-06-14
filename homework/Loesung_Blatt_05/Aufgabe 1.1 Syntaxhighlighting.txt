@@ -1,0 +1,7 @@
+Aufgabe 1.1: Syntaxhighlighting mit ANTLR
+
+Für das Syntaxhighlighting wurde diesmal der von ANTLR generierte MiniJavaLexer verwendet. Der Eingabetext wird mit CharStreams.fromString(text) eingelesen und anschließend vom Lexer in einzelne Tokens zerlegt. Diese Tokens werden mit einem CommonTokenStream gesammelt. Danach werden nur die relevanten Token-Typen, zum Beispiel Keywords, String-Literale, Char-Literale, Kommentare und Annotationen, in HighlightRegion-Objekte umgewandelt.
+
+Im Vergleich zu den Regex-Varianten aus Blatt 04 ist die ANTLR-Lösung strukturierter, weil der Lexer die Sprache anhand der Grammatik erkennt. Dadurch entstehen weniger Konflikte zwischen überlappenden Treffern. Zum Beispiel wird ein Keyword innerhalb eines Kommentars oder Strings nicht zusätzlich als Keyword erkannt, weil der komplette Kommentar oder String bereits ein eigenes Token ist.
+
+Die Regex-Variante ist einfacher zu starten, aber bei vielen Sonderfällen aufwändiger und fehleranfälliger. Die ANTLR-Variante benötigt zuerst eine Grammatik und generierte Klassen, ist danach aber sauberer und besser erweiterbar.
