@@ -1,0 +1,9 @@
+Bei der Code-Analyse wurde die Struktur des vorgegebenen LockSnake-Projekts untersucht. Das Projekt ist in mehrere Bereiche aufgeteilt: Die Klasse Main startet das Programm, lädt das Level und erstellt die zentralen Objekte wie GameEngine, GamePanel und Renderer.
+
+Die GameEngine ist für die Steuerung des Spiels zuständig. Sie verwaltet den aktuellen GameState und reagiert auf Tastatureingaben sowie Timer-Ereignisse. Der GameState beschreibt den aktuellen Spielzustand. Dazu gehören das Level, die Schlange, die Pins, der Spielstatus und die aktuell gesetzte Bewegungsrichtung.
+
+Das Level enthält die Spielfeldinformationen, also Breite, Höhe, Zellen, Startposition der Schlange und die vorhandenen Pins. Die Klasse Snake modelliert die Schlange über eine Liste von Positionen. Die Klasse Pin beschreibt einzelne Pins mit Position, Zustand und Aktivierungsrichtung. Direction wird verwendet, um Bewegungsrichtungen zu beschreiben, und CellType beschreibt die verschiedenen Zelltypen des Levels.
+
+Für die Darstellung ist das GamePanel zuständig. Es zeigt den aktuellen GameState an und nutzt dafür einen GameRenderer. Die konkrete Zeichenlogik befindet sich z. B. in Java2DRenderer. Dadurch ist die Spiellogik von der Darstellung getrennt.
+
+Aus der Analyse ergibt sich, dass GameEngine, GameState, Level, Snake, Pin, Position, Direction, CellType, GamePanel und Java2DRenderer die wichtigsten Klassen für das Klassendiagramm sind. Die wichtigsten Beziehungen sind: GameEngine verwaltet GameState, GameState enthält Level, Snake und Pins, GamePanel zeigt den GameState an, und Java2DRenderer rendert den GameState.
