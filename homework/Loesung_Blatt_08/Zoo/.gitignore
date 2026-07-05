@@ -1,0 +1,7 @@
+out/
+build/
+.gradle/
+.idea/
+.codex/
+.agents/
+zoo_uml.png

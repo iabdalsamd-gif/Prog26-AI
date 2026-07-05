@@ -1,0 +1,9 @@
+package zoo;
+
+public enum ZooError {
+    ANIMAL_ALREADY_PRESENT,
+    ANIMAL_NOT_FOUND,
+    COMMAND_NOT_EXECUTED,
+    UNDO_STACK_EMPTY,
+    REDO_STACK_EMPTY
+}
